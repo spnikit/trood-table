@@ -1,46 +1,26 @@
-# Getting Started with Create React App
+### TokenTable
+   Input props:
+1. items - data array:
+   [
+   {id: 1, name: 'Pyshky.net', status: 'green', type: 'TRST', conditions: 'x2,6 months', volume: 120000, roi: 4, free: 20, hedge: 20},
+   {id: 2, name: 'NFT-Flowershop', status: 'yellow', type: 'THT', conditions: 'x4,2 years', volume: 80000, roi: 23, free: 12, hedge: 0},
+   {id: 4, name: 'Web3 P2P University', status: 'red', type: 'TRST', conditions: 'x2,1 years', volume: 200000, roi: 6, free: 1, hedge: 0},
+   ...
+   ]
+2. header cell of name of a column, by which the table is sorted (it can be a '-' sigh without a space before a field, which means a descending order sorting)
+3. filters - an object with fields status and type, values of which corresponds to selected filters
+4. onSort - function invoked on press on a line name, a field name is passed on click. If the field name equals to value of props.sort - then the field name with preceding '-' sign is passed
+5. onFilter - function invoked by change of column filter, function call with filters object, where old value is changed by the new one, value of another field remains as is
+6. onBuy - function invoked by pressing Buy, id value from items array of the corresponding line is passed on the invocation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Filtering:
+1. Above Project column the filter (select) on status field is opened, the current value is set by props.filters.status. On change props.onFilter is called with passing the object `props.filters`, with updated value of status (e.g. {type: <OLD_VALUE>, status: 'green'})
+2. Above Token type column type field search is opened, current value is set by props.filters.type. On change props.onFilter is invoked, with passing `props.filters`, with an updated type value (e.g. {status: <OLD_VALUE>, type: 'TR'})
+   Sorting: see props.onSort
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Table data:
+1. Line color and indicator color are defined by 'status' field, enum: green, yellow, red
+2. Number values are displayed with formatting provided in the mockup
+3. String values are displayed as is
+4. Click anywhere on a line (except Buy button) must cause jumping to link /project/<id>, where <id> - is a field from items array of the corresponding line
+5. Click on Buy calls props.onBuy (see props.onBuy)
